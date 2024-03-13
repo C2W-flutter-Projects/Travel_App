@@ -13,7 +13,12 @@ class TODOModel {
   TODOModel({this.taskId, this.title, this.description, this.date});
 
   Map<String, dynamic> todoMap() {
-    return {"taskId":taskId,"title": title, "description": description, "date": date};
+    return {
+      "taskId": taskId,
+      "title": title,
+      "description": description,
+      "date": date
+    };
   }
 
   @override
@@ -21,6 +26,7 @@ class TODOModel {
     return """{taskId -> $taskId, title -> $title, description -> $description, date -> $date,}""";
   }
 }
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -31,7 +37,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ///Text Editing Controllers
   final TextEditingController searchController = TextEditingController();
-  
+
   final TextEditingController dateController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
   final TextEditingController descriptionController = TextEditingController();
@@ -49,7 +55,7 @@ class _HomePageState extends State<HomePage> {
             "Keep track of the items you need to purchase from the grocery store, including fresh produce, pantry staples, and household essentials.",
         date: "3/2/2022"),
   ];
-  
+
   void clearControllers() {
     titleController.clear();
     descriptionController.clear();
@@ -91,6 +97,8 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  RangeValues _values = const RangeValues(0, 100);
+
   Future<void> showBottomSht(bool doEdit, [TODOModel? todoModelObj]) async {
     await showModalBottomSheet(
       isScrollControlled: true,
@@ -123,6 +131,21 @@ class _HomePageState extends State<HomePage> {
               ),
               const SizedBox(
                 height: 15,
+              ),
+              RangeSlider(
+                values: _values,
+                min: 0,
+                max: 1000,
+                onChanged: (values) {
+                  setState(() {
+                    _values = values;
+                  });
+                },
+                divisions: 10, // optional, adds tick marks
+                labels: RangeLabels(
+                  _values.start.toString(),
+                  _values.end.toString(),
+                ),
               ),
               Form(
                 key: _formKey,
@@ -279,7 +302,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -300,6 +322,11 @@ class _HomePageState extends State<HomePage> {
                       controller: searchController,
                       decoration: InputDecoration(
                         prefixIcon: const Icon(Icons.search),
+                        suffixIcon: IconButton(
+                            onPressed: () async {
+                              await showBottomSht(false);
+                            },
+                            icon: const Icon(Icons.filter_alt_outlined)),
                         hintText: "Where do you want to stay?",
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(3.0),
