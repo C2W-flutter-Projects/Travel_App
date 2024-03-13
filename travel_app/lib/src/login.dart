@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/home_page.dart';
-import 'package:travel_app/register.dart';
+import 'package:travel_app/src/home_page.dart';
+import 'package:travel_app/src/register.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});

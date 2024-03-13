@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 // import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:travel_app/home_page.dart';
-import 'package:travel_app/login.dart';
+import 'package:travel_app/src/home_page.dart';
+import 'package:travel_app/src/login.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 
 class Register extends StatefulWidget {
