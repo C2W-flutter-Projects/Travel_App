@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
 
 class TODOModel {
   int? taskId;
@@ -44,17 +46,20 @@ class _HomePageState extends State<HomePage> {
   final _formKey = GlobalKey<FormState>();
 
   List<TODOModel> cardList = [
-    TODOModel(
-        title: "Daily Tasks",
-        description:
-            "This list includes essential tasks that need to be completed each day, such as responding to emails, making phone calls, and tidying up the workspace.",
-        date: "3/2/2022"),
-    TODOModel(
-        title: "Grocery Shopping",
-        description:
-            "Keep track of the items you need to purchase from the grocery store, including fresh produce, pantry staples, and household essentials.",
-        date: "3/2/2022"),
+    // TODOModel(
+    //     title: "Daily Tasks",
+    //     description:
+    //         "This list includes essential tasks that need to be completed each day, such as responding to emails, making phone calls, and tidying up the workspace.",
+    //     date: "3/2/2022"),
+    // TODOModel(
+    //     title: "Grocery Shopping",
+    //     description:
+    //         "Keep track of the items you need to purchase from the grocery store, including fresh produce, pantry staples, and household essentials.",
+    //     date: "3/2/2022"),
   ];
+
+  double rangeStart = 0;
+  double rangeEnd = 100;
 
   void clearControllers() {
     titleController.clear();
@@ -97,8 +102,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  RangeValues _values = const RangeValues(0, 100);
-
   Future<void> showBottomSht(bool doEdit, [TODOModel? todoModelObj]) async {
     await showModalBottomSheet(
       isScrollControlled: true,
@@ -118,33 +121,103 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
                 height: 20,
               ),
-              Text(
-                "Create Tasks",
-                style: GoogleFonts.quicksand(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 22,
-                ),
+              Row(
+                children: [
+                  Text(
+                    "Filters",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.quicksand(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
+                    ),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      icon: const Icon(Icons.close))
+                ],
               ),
               const SizedBox(
                 height: 15,
               ),
-              RangeSlider(
-                values: _values,
-                min: 0,
-                max: 1000,
-                onChanged: (values) {
-                  setState(() {
-                    _values = values;
-                  });
-                },
-                divisions: 10, // optional, adds tick marks
-                labels: RangeLabels(
-                  _values.start.toString(),
-                  _values.end.toString(),
+              Text(
+                "Price range",
+                style: GoogleFonts.quicksand(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 20,
+                ),
+              ),
+              SfRangeSliderTheme(
+                data: SfRangeSliderThemeData(
+                  tooltipBackgroundColor: Colors.white,
+                  tooltipTextStyle: const TextStyle(
+                      color: Color.fromRGBO(89, 57, 241, 1),
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600),
+                ),
+                child: SfRangeSlider(
+                  shouldAlwaysShowTooltip: true,
+
+                  dragMode: SliderDragMode.both,
+
+                  tooltipTextFormatterCallback: (actualValue, formattedText) {
+                    double d = actualValue;
+
+                    return '${d.toStringAsFixed(1000)} ₹';
+                  },
+
+                  // enableTooltip: true,
+
+                  min: 1000,
+
+                  max: 10000,
+
+                  activeColor: const Color.fromRGBO(89, 57, 241, 1),
+
+                  startThumbIcon: Container(
+                    width: 28,
+                    height: 28,
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(89, 57, 241, 1),
+                        shape: BoxShape.circle),
+                    child: const Icon(
+                      fill: BorderSide.strokeAlignCenter,
+                      size: 15,
+                      Icons.arrow_forward_ios_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+
+                  endThumbIcon: Container(
+                    width: 28,
+                    height: 28,
+                    decoration: const BoxDecoration(
+                        color: Color.fromRGBO(89, 57, 241, 1),
+                        shape: BoxShape.circle),
+                    child: const Icon(
+                      fill: BorderSide.strokeAlignCenter,
+                      size: 15,
+                      Icons.arrow_back_ios_new_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+
+                  values: SfRangeValues(rangeStart, rangeEnd),
+
+                  onChanged: (value) {
+                    setState(() {
+                      rangeStart = value.start;
+
+                      rangeEnd = value.end;
+                    });
+                  },
                 ),
               ),
               Form(

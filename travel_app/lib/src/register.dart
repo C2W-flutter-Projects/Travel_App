@@ -57,7 +57,8 @@ class _RegisterState extends State<Register> {
         child: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.only(right: 10.0, bottom: 20.0),
+            padding:
+                const EdgeInsets.only(right: 10.0, left: 10.0, bottom: 20.0),
             child: Column(
               children: [
                 const SizedBox(
