@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class Time extends StatefulWidget {
   const Time({super.key});
@@ -10,6 +11,7 @@ class Time extends StatefulWidget {
 
 class TimeState extends State<Time> {
   TextEditingController locationController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +20,7 @@ class TimeState extends State<Time> {
         child: Column(
           children: [
             const SizedBox(
-              height: 62,
+              height: 72,
             ),
             const Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -29,17 +31,91 @@ class TimeState extends State<Time> {
             const SizedBox(
               height: 30,
             ),
+            TextField(
+              controller: locationController,
+              decoration: InputDecoration(
+                hintText: 'Location',
+                suffixIcon: const Icon(Icons.location_on),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child: TextField(
-                    controller: locationController,
-                    decoration: InputDecoration(
-                      hintText: 'Location',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.black),
-                      ),
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurpleAccent,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: const Text(
+                    "Choose Date",
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+            Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.blue),
+                ),
+                child: Center(
+                    child: TableCalendar(
+                  focusedDay: DateTime.now(),
+                  firstDay: DateTime(2020),
+                  lastDay: DateTime(2026),
+                ))),
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurpleAccent,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ElevatedButton(
+                    style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(Colors.deepPurpleAccent),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      "Skip",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                const Spacer(),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.deepPurpleAccent,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: ElevatedButton(
+                    style: const ButtonStyle(
+                      backgroundColor:
+                          MaterialStatePropertyAll(Colors.deepPurpleAccent),
+                    ),
+                    onPressed: () {},
+                    child: const Text(
+                      "Next",
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),

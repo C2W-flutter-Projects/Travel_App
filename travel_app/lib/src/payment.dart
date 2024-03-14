@@ -13,7 +13,9 @@ class _PaymentPageState extends State<PaymentPage> {
     return Scaffold(
       backgroundColor: Color(0xF8F9FA),
       body: Center(
-        child: Container(width: 350,),
+        child: Container(
+          width: 350,
+        ),
       ),
     );
   }
