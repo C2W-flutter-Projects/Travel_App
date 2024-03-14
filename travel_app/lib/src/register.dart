@@ -121,7 +121,7 @@ class _RegisterState extends State<Register> {
                           decoration: InputDecoration(
                             hintText: "+91  Enter Mobile Number",
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(3.0),
+                              borderRadius: BorderRadius.circular(4.0),
                             ),
                           ),
                           validator: (value) {
@@ -141,13 +141,17 @@ class _RegisterState extends State<Register> {
                 Container(
                   decoration: BoxDecoration(
                       color: const Color.fromRGBO(93, 73, 190, 1),
-                      borderRadius: BorderRadius.circular(3)),
+                      borderRadius: BorderRadius.circular(4)),
                   width: 370,
                   height: 52,
-                  child: ElevatedButton(
-                    style: const ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll(
-                          Color.fromRGBO(93, 73, 190, 1)),
+                  child: TextButton(
+                    style:  ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(4.0), // Change the border radius as needed
+              ),),
+                      backgroundColor: const MaterialStatePropertyAll(
+                          Color(0xff6D31ED),),
                     ),
                     onPressed: () {
                       setState(() {
