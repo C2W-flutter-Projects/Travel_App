@@ -1,8 +1,10 @@
 // import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:travel_app/src/time_range.dart';
 
 class TODOModel {
   int? taskId;
@@ -397,7 +399,15 @@ class _HomePageState extends State<HomePage> {
                   margin: const EdgeInsets.all(10),
                   child: Column(
                     children: [
-                      Image.asset("assets/images/place1.jpg"),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const Time()),
+                            );
+                          },
+                          child: Image.asset("assets/images/place1.jpg")),
                       const SizedBox(
                         height: 13,
                       ),
