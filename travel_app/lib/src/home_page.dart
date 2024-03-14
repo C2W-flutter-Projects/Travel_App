@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-import 'package:travel_app/src/time_range.dart';
+import 'package:syncfusion_flutter_sliders/sliders.dart';
+import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:travel_app/src/book_now.dart';
+import 'package:travel_app/src/payment.dart';
 
 class TODOModel {
   int? taskId;
@@ -391,89 +394,106 @@ class _HomePageState extends State<HomePage> {
             height: 20,
           ),
           Flexible(
-            child: ListView.builder(
-              shrinkWrap: true,
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const Time()),
-                            );
-                          },
-                          child: Image.asset("assets/images/place1.jpg")),
-                      const SizedBox(
-                        height: 13,
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              width: 25,
-                            ),
-                            Text(
-                              "Resort in Goa",
-                              style: GoogleFonts.manrope(
-                                  fontSize: 14, fontWeight: FontWeight.w700),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.star,
-                              color: Colors.amber,
-                            ),
-                            Text(
-                              "5.0",
-                              style: GoogleFonts.manrope(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
-                            )
-                          ],
+            child: Container(
+              padding: const EdgeInsets.all(10.0),
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(25)),
+                  color: Colors.white),
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: 6,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const BookNowPage()));
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 350,
+                          height: 323,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    "assets/images/place${index + 1}.jpg"),
+                                fit: BoxFit.cover),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          // child: Image.asset(
+                          //     "assets/images/place${index + 1}.jpg")
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const SizedBox(
-                              width: 25,
-                            ),
-                            Text(
-                              "Beach",
-                              style: GoogleFonts.manrope(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
-                            ),
-                            const Spacer(),
-                            const Icon(
-                              Icons.currency_rupee,
-                              color: Colors.black,
-                              size: 18,
-                            ),
-                            Text(
-                              "850/night",
-                              style: GoogleFonts.manrope(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
-                            ),
-                          ],
+                        const SizedBox(
+                          height: 13,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                    ],
-                  ),
-                );
-              },
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 25.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              Text(
+                                "Resort in Goa",
+                                style: GoogleFonts.manrope(
+                                    fontSize: 14, fontWeight: FontWeight.w700),
+                              ),
+                              const Spacer(),
+                              const Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              Text(
+                                "5.0",
+                                style: GoogleFonts.manrope(
+                                    fontSize: 14, fontWeight: FontWeight.w400),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              Text(
+                                "Beach",
+                                style: GoogleFonts.manrope(
+                                    fontSize: 14, fontWeight: FontWeight.w400),
+                              ),
+                              const Spacer(),
+                              const Icon(
+                                Icons.currency_rupee,
+                                color: Colors.black,
+                                size: 18,
+                              ),
+                              Text(
+                                "850/night",
+                                style: GoogleFonts.manrope(
+                                    fontSize: 14, fontWeight: FontWeight.w400),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         ],
