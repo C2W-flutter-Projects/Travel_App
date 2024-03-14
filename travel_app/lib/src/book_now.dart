@@ -226,7 +226,7 @@ class _BookNowPageState extends State<BookNowPage> {
                   Row(
                     children: [
                       Text(
-                        "You can make a partial payment now and the\n remaining amount at a later time.",
+                        "You can make partial payment now and\nthe remaining amount at a later time.",
                         style: GoogleFonts.manrope(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
