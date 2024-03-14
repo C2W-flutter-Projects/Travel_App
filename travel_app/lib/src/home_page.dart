@@ -9,8 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:travel_app/src/add_guests.dart';
 import 'package:travel_app/src/book_now.dart';
 import 'package:travel_app/src/payment.dart';
+import 'package:travel_app/src/time_range.dart';
 
 class TODOModel {
   int? taskId;
@@ -759,7 +761,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const BookNowPage()));
+                              builder: (context) => const Time()));
                     },
                     child: Column(
                       children: [
@@ -857,6 +859,10 @@ class _HomePageState extends State<HomePage> {
         onTap: (index) {
           setState(() {
             selectedIndex = index;
+            if (index == 2) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Add_Guest()));
+            }
           });
         },
         items: const <Widget>[

@@ -94,7 +94,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
                         ),
-                      ),
+),
                       const Spacer(),
                       Text(
                         "00000345678765",
