@@ -159,7 +159,7 @@ class _Add_GuestState extends State<Add_Guest> {
                       Container(
                         margin: const EdgeInsets.all(15),
                         child: Text(
-                          "$adultCount",
+                          "$childrenCount",
                           style: TextStyle(fontSize: 15),
                         ),
                       ),

@@ -42,9 +42,7 @@ class _PaymentPageState extends State<PaymentPage> {
     final path = (await getApplicationDocumentsDirectory()).path;
     final file = File('${path}/example.pdf');
     await file.writeAsBytes(await pdf.save());
-    
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +92,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
                         ),
-),
+                      ),
                       const Spacer(),
                       Text(
                         "00000345678765",
