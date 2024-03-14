@@ -20,7 +20,7 @@ class _PaymentPageState extends State<PaymentPage> {
           children: [
             Center(
               child: Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(40),
                 width: 350,
                 height: 441,
                 decoration: BoxDecoration(

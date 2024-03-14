@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:travel_app/src/add_guests.dart';
 
 class Time extends StatefulWidget {
   const Time({super.key});
@@ -94,7 +95,12 @@ class TimeState extends State<Time> {
                       backgroundColor:
                           MaterialStatePropertyAll(Colors.deepPurpleAccent),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Add_Guest()));
+                    },
                     child: const Text(
                       "Skip",
                       style: TextStyle(color: Colors.white),
@@ -112,7 +118,12 @@ class TimeState extends State<Time> {
                       backgroundColor:
                           MaterialStatePropertyAll(Colors.deepPurpleAccent),
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Add_Guest()));
+                    },
                     child: const Text(
                       "Next",
                       style: TextStyle(color: Colors.white),

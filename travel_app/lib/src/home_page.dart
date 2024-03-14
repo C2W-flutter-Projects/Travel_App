@@ -1,13 +1,18 @@
 // import 'package:flutter/cupertino.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_launcher_icons/xml_templates.dart';
 // import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
+import 'package:travel_app/src/add_guests.dart';
 import 'package:travel_app/src/book_now.dart';
 import 'package:travel_app/src/payment.dart';
+import 'package:travel_app/src/time_range.dart';
 
 class TODOModel {
   int? taskId;
@@ -50,18 +55,30 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  // variables
   List<TODOModel> cardList = [
-    TODOModel(
-        title: "Daily Tasks",
-        description:
-            "This list includes essential tasks that need to be completed each day, such as responding to emails, making phone calls, and tidying up the workspace.",
-        date: "3/2/2022"),
-    TODOModel(
-        title: "Grocery Shopping",
-        description:
-            "Keep track of the items you need to purchase from the grocery store, including fresh produce, pantry staples, and household essentials.",
-        date: "3/2/2022"),
+    // TODOModel(
+    //     title: "Daily Tasks",
+    //     description:
+    //         "This list includes essential tasks that need to be completed each day, such as responding to emails, making phone calls, and tidying up the workspace.",
+    //     date: "3/2/2022"),
+    // TODOModel(
+    //     title: "Grocery Shopping",
+    //     description:
+    //         "Keep track of the items you need to purchase from the grocery store, including fresh produce, pantry staples, and household essentials.",
+    //     date: "3/2/2022"),
   ];
+
+  double rangeStart = 1000;
+  double rangeEnd = 10000;
+  bool _isChecked1 = false;
+  bool _isChecked2 = false;
+  bool _isChecked3 = false;
+  bool _isFacilityChecked1 = false;
+  bool _isFacilityChecked2 = false;
+  bool _isFacilityChecked3 = false;
+  bool _isFacilityChecked4 = false;
+  bool _isFacilityChecked5 = false;
 
   void clearControllers() {
     titleController.clear();
@@ -104,8 +121,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  RangeValues _values = const RangeValues(0, 100);
-
   Future<void> showBottomSht(bool doEdit, [TODOModel? todoModelObj]) async {
     await showModalBottomSheet(
       isScrollControlled: true,
@@ -125,183 +140,518 @@ class _HomePageState extends State<HomePage> {
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Text(
-                "Create Tasks",
-                style: GoogleFonts.quicksand(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 22,
-                ),
-              ),
               const SizedBox(
                 height: 15,
               ),
-              RangeSlider(
-                values: _values,
-                min: 0,
-                max: 1000,
-                onChanged: (values) {
-                  setState(() {
-                    _values = values;
-                  });
-                },
-                divisions: 10, // optional, adds tick marks
-                labels: RangeLabels(
-                  _values.start.toString(),
-                  _values.end.toString(),
-                ),
-              ),
-              Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Title",
-                      style: GoogleFonts.quicksand(
-                        color: const Color.fromRGBO(89, 57, 241, 1),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                      ),
+              Row(
+                children: [
+                  Text(
+                    "Filters",
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.manrope(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14,
                     ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    TextFormField(
-                      controller: titleController,
-                      decoration: InputDecoration(
-                        hintText: "Enter Title",
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color.fromRGBO(89, 57, 241, 1),
-                          ),
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      "Description",
-                      style: GoogleFonts.quicksand(
-                        color: const Color.fromRGBO(89, 57, 241, 1),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    TextFormField(
-                      controller: descriptionController,
-                      maxLines: 3,
-                      decoration: InputDecoration(
-                        hintText: "Enter Description",
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color.fromRGBO(89, 57, 241, 1),
-                          ),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Text(
-                      "Date",
-                      style: GoogleFonts.quicksand(
-                        color: const Color.fromRGBO(89, 57, 241, 1),
-                        fontWeight: FontWeight.w400,
-                        fontSize: 15,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    TextFormField(
-                      controller: dateController,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        hintText: "Enter Date",
-                        suffixIcon: const Icon(Icons.date_range_rounded),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color.fromRGBO(89, 57, 241, 1),
-                          ),
-                        ),
-                        border: OutlineInputBorder(
-                          borderSide: const BorderSide(),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(color: Colors.red),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2023),
-                          lastDate: DateTime(2025),
-                        );
-                        String formatedDate =
-                            DateFormat.yMMMd().format(pickedDate!);
-                        dateController.text = formatedDate;
+                  ),
+                  const Spacer(),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
                       },
-                    ),
-                  ],
+                      icon: const Icon(Icons.close))
+                ],
+              ),
+              const Divider(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        "Price range",
+                        style: GoogleFonts.manrope(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: SfRangeSliderTheme(
+                          data: SfRangeSliderThemeData(
+                            tooltipBackgroundColor: Colors.white,
+                            tooltipTextStyle: const TextStyle(
+                              color: Color(0xff6D31ED),
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          child: SfRangeSlider(
+                            dragMode: SliderDragMode.both,
+                            tooltipTextFormatterCallback:
+                                (actualValue, formattedText) {
+                              return '${actualValue.toStringAsFixed(2)} ₹';
+                            },
+                            enableTooltip: true,
+                            showLabels: true,
+                            labelFormatterCallback:
+                                (actualValue, formattedText) {
+                              // return actualValue == 1000 ? 'Minimum\n\$ $actualValue +' : 'Maximum\n\$ $actualValue';
+                              return actualValue == 1000
+                                  ? 'Minimum\n$formattedText ₹'
+                                  : 'Maximum\n$formattedText ₹';
+                            },
+                            min: 1000,
+                            max: 10000,
+                            activeColor: const Color(0xff6D31ED),
+                            startThumbIcon: Container(
+                              width: 28,
+                              height: 28,
+                              decoration: const BoxDecoration(
+                                color: Color(0xff6D31ED),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: 15,
+                                color: Colors.white,
+                              ),
+                            ),
+                            endThumbIcon: Container(
+                              width: 28,
+                              height: 28,
+                              decoration: const BoxDecoration(
+                                color: Color(0xff6D31ED),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.arrow_back_ios_new_rounded,
+                                size: 15,
+                                color: Colors.white,
+                              ),
+                            ),
+                            values: SfRangeValues(rangeStart, rangeEnd),
+                            onChanged: (value) {
+                              setState(() {
+                                rangeStart = value.start;
+                                rangeEnd = value.end;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      Text(
+                        "Type of place",
+                        style: GoogleFonts.manrope(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 20,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Entire place",
+                            style: GoogleFonts.manrope(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Entire apartments, condos, houses",
+                                style: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              const Spacer(),
+                              Checkbox(
+                                value: _isChecked1,
+                                checkColor: Colors.white,
+                                activeColor: const Color(0xff6D31ED),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isChecked1 = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            "Private room",
+                            style: GoogleFonts.manrope(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Typically come with a private bathroom\n unless otherwise stated",
+                                style: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 14,
+                                  color: Colors.grey,
+                                ),
+                              ),
+                              const Spacer(),
+                              Checkbox(
+                                value: _isChecked2,
+                                checkColor: Colors.white,
+                                activeColor: const Color(0xff6D31ED),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isChecked2 = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            "Dormitories",
+                            style: GoogleFonts.manrope(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Large rooms with multiple beds\n that are shared with others",
+                                style: GoogleFonts.manrope(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14,
+                                    color: Colors.grey),
+                              ),
+                              const Spacer(),
+                              Checkbox(
+                                value: _isChecked3,
+                                checkColor: Colors.white,
+                                activeColor: const Color(0xff6D31ED),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isChecked3 = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            "Rooms and beds",
+                            style: GoogleFonts.manrope(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          OutlinedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              fixedSize: const MaterialStatePropertyAll(
+                                Size(350, 50),
+                              ),
+                              side: MaterialStateProperty.all<BorderSide>(
+                                const BorderSide(
+                                  color: Colors
+                                      .grey, // Change the border color here
+                                  width: 1, // Change the border width here
+                                ),
+                              ),
+                              elevation: MaterialStateProperty.all<double>(5),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      0.0), // Change the border radius as needed
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "Bedrooms",
+                              style: GoogleFonts.manrope(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          OutlinedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              fixedSize: const MaterialStatePropertyAll(
+                                Size(350, 50),
+                              ),
+                              side: MaterialStateProperty.all<BorderSide>(
+                                const BorderSide(
+                                  color: Colors
+                                      .grey, // Change the border color here
+                                  width: 1, // Change the border width here
+                                ),
+                              ),
+                              elevation: MaterialStateProperty.all<double>(5),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      0.0), // Change the border radius as needed
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "Beds",
+                              style: GoogleFonts.manrope(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          OutlinedButton(
+                            onPressed: () {},
+                            style: ButtonStyle(
+                              fixedSize: const MaterialStatePropertyAll(
+                                Size(350, 50),
+                              ),
+                              side: MaterialStateProperty.all<BorderSide>(
+                                const BorderSide(
+                                  color: Colors
+                                      .grey, // Change the border color here
+                                  width: 1, // Change the border width here
+                                ),
+                              ),
+                              elevation: MaterialStateProperty.all<double>(5),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      0.0), // Change the border radius as needed
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              "Bathrooms",
+                              style: GoogleFonts.manrope(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            "Facilities",
+                            style: GoogleFonts.manrope(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Kitchen",
+                                style: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Spacer(),
+                              Checkbox(
+                                value: _isFacilityChecked1,
+                                checkColor: Colors.white,
+                                activeColor: const Color(0xff6D31ED),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isFacilityChecked1 = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Pool",
+                                style: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Spacer(),
+                              Checkbox(
+                                value: _isFacilityChecked2,
+                                checkColor: Colors.white,
+                                activeColor: const Color(0xff6D31ED),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isFacilityChecked2 = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Gym",
+                                style: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Spacer(),
+                              Checkbox(
+                                value: _isFacilityChecked3,
+                                checkColor: Colors.white,
+                                activeColor: const Color(0xff6D31ED),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isFacilityChecked3 = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Outdoor space",
+                                style: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Spacer(),
+                              Checkbox(
+                                value: _isFacilityChecked4,
+                                checkColor: Colors.white,
+                                activeColor: const Color(0xff6D31ED),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isFacilityChecked4 = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          Row(
+                            children: [
+                              Text(
+                                "Internet access",
+                                style: GoogleFonts.manrope(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const Spacer(),
+                              Checkbox(
+                                value: _isFacilityChecked5,
+                                checkColor: Colors.white,
+                                activeColor: const Color(0xff6D31ED),
+                                onChanged: (bool? value) {
+                                  setState(() {
+                                    _isFacilityChecked5 = value!;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              Container(
-                height: 50,
-                width: 300,
-                margin: const EdgeInsets.all(10),
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(30)),
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                        13,
+              const Divider(),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      setState(() {});
+                    },
+                    child: Text(
+                      "Clear all",
+                      style: GoogleFonts.manrope(
+                        fontSize: 14,
+                        color: const Color(0xff6D31ED),
                       ),
                     ),
-                    backgroundColor: const Color.fromRGBO(89, 57, 241, 1),
                   ),
-                  onPressed: () {
-                    doEdit ? submit(doEdit, todoModelObj) : submit(doEdit);
-                    Navigator.pop(context);
-                  },
-                  child: Text(
-                    "Submit",
-                    style: GoogleFonts.inter(
+                  const Spacer(),
+                  TextButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              8.0), // Change the border radius as needed
+                        ),
+                      ),
+                      backgroundColor: const MaterialStatePropertyAll(
+                        Color(0xff6D31ED),
+                      ),
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        Navigator.of(context).pop();
+                      });
+                    },
+                    child: Text(
+                      "View Results",
+                      style: GoogleFonts.manrope(
+                        fontSize: 16,
                         color: Colors.white,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 20),
+                      ),
+                    ),
                   ),
-                ),
-              ),
+                ],
+              )
             ],
           ),
         );
@@ -312,86 +662,87 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue.shade100,
       body: Column(
         children: [
-          Container(
-            color: Colors.blue[50],
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 56,
-                  ),
-                  Container(
+          Padding(
+            padding: const EdgeInsets.only(top: 15.0, left: 15, right: 15),
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 56,
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(8)),
                     color: Colors.white,
-                    child: TextField(
-                      controller: searchController,
-                      decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search),
-                        suffixIcon: IconButton(
-                            onPressed: () async {
-                              await showBottomSht(false);
-                            },
-                            icon: const Icon(Icons.filter_alt_outlined)),
-                        hintText: "Where do you want to stay?",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(3.0),
-                        ),
+                  ),
+                  child: TextField(
+                    controller: searchController,
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: IconButton(
+                          onPressed: () async {
+                            await showBottomSht(false);
+                          },
+                          icon: const Icon(Icons.filter_alt_outlined)),
+                      hintText: "Where do you want to stay?",
+                      fillColor: Colors.white,
+                      enabledBorder: InputBorder.none,
+                      border: OutlineInputBorder(
+                        borderSide:
+                            const BorderSide(width: 0, color: Colors.white),
+                        borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 15,
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10, left: 10, right: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Container(
+                        height: 60,
+                        width: 100,
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            bottom: BorderSide(
+                                width: 4, color: Colors.deepPurpleAccent),
+                          ),
+                        ),
+                        child: const Icon(
+                          size: 30,
+                          Icons.beach_access_rounded,
+                          color: Colors.deepPurpleAccent,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 60,
+                        width: 100,
+                        child: Icon(
+                          size: 30,
+                          Icons.terrain,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 60,
+                        width: 100,
+                        child: Icon(
+                          size: 30,
+                          Icons.business,
+                          color: Colors.black87,
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(top: 10, left: 10, right: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 60,
-                          width: 100,
-                          decoration: const BoxDecoration(
-                            border: Border(
-                              bottom: BorderSide(
-                                  width: 4, color: Colors.deepPurpleAccent),
-                            ),
-                          ),
-                          child: const Icon(
-                            size: 30,
-                            Icons.beach_access_rounded,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                        ),
-                        Container(
-                          height: 60,
-                          width: 100,
-                          child: const Icon(
-                            size: 30,
-                            Icons.terrain,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                        ),
-                        Container(
-                          height: 60,
-                          width: 100,
-                          child: const Icon(
-                            size: 30,
-                            Icons.business,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(
-            height: 20,
           ),
           Flexible(
             child: Container(
@@ -410,7 +761,7 @@ class _HomePageState extends State<HomePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const BookNowPage()));
+                              builder: (context) => const Time()));
                     },
                     child: Column(
                       children: [
@@ -498,36 +849,28 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.black,
-        selectedItemColor: Colors.blue,
-        showUnselectedLabels: true,
+      bottomNavigationBar: CurvedNavigationBar(
+        backgroundColor: Colors.white,
+        color: Colors.blue.shade100,
+        buttonBackgroundColor: Colors.blue.shade100,
+        height: 50,
+        animationDuration: const Duration(milliseconds: 300),
+        index: selectedIndex,
         onTap: (index) {
-          selectedIndex = index;
+          setState(() {
+            selectedIndex = index;
+            if (index == 2) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Add_Guest()));
+            }
+          });
         },
-        currentIndex: selectedIndex,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search, color: Colors.black),
-            label: 'Search',
-            activeIcon: Icon(Icons.search),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.favorite, color: Colors.black),
-            label: 'favourites',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.widgets_outlined, color: Colors.black),
-            label: 'Bookings',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.message, color: Colors.black),
-            label: 'Inbox',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle, color: Colors.black),
-            label: 'Profile',
-          ),
+        items: const <Widget>[
+          Icon(Icons.search, color: Colors.black),
+          Icon(Icons.favorite, color: Colors.black),
+          Icon(Icons.widgets_outlined, color: Colors.black),
+          Icon(Icons.message, color: Colors.black),
+          Icon(Icons.account_circle, color: Colors.black),
         ],
       ),
     );
