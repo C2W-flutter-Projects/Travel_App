@@ -19,32 +19,6 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-  Future<void> _generatePdf() async {
-    final pdf = pw.Document();
-    // Load font file from assets
-    final fontData =
-        await rootBundle.load('assets/images/times new roman bold italic.ttf');
-    // Embed font
-    final ttf = pw.Font.ttf(fontData.buffer.asByteData());
-    // Add page with custom font
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) {
-          return pw.Column(
-            children: [
-              pw.Text('Hello World!',
-                  style: pw.TextStyle(fontSize: 40, font: ttf)),
-            ],
-          );
-        },
-      ),
-    );
-
-    final path = (await getApplicationDocumentsDirectory()).path;
-    final file = File('${path}/example.pdf');
-    await file.writeAsBytes(await pdf.save());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

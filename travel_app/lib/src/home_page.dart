@@ -13,6 +13,7 @@ import 'package:travel_app/src/add_guests.dart';
 import 'package:travel_app/src/book_now.dart';
 import 'package:travel_app/src/payment.dart';
 import 'package:travel_app/src/profile_page.dart';
+import 'package:travel_app/src/reviews.dart';
 import 'package:travel_app/src/time_range.dart';
 
 class TODOModel {
@@ -867,6 +868,11 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(
                       builder: (context) => const AddGuestPage()));
             }
+            if (index == 1) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const TODOAppUI()));
+            }
+
             if (index == 3) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const BookNowPage()));
