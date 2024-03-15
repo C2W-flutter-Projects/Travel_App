@@ -42,10 +42,10 @@ class _SignUpState extends State<SignUp> {
   void _showSuccessSnackbar() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(59, 76, 107, 175),
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 20),
-        content: Text('Logged in Successfully',
+        content: Text('Signed Up Successfully',
             style: TextStyle(color: Colors.white)),
         duration: Duration(seconds: 2),
       ),
