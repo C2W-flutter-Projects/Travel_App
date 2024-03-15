@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:travel_app/src/add_guests.dart';
+import 'package:travel_app/src/home_page.dart';
 
 class Time extends StatefulWidget {
   const Time({super.key});
@@ -22,14 +23,19 @@ class TimeState extends State<Time> {
           child: Column(
             children: [
               const SizedBox(
-                height: 72,
+                height: 32,
               ),
-              const Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Icon(Icons.cancel),
-                ],
-              ),
+              GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()));
+                      },
+                      child: Icon(
+                        Icons.cancel,
+                        size: 26,
+                      )),
               const SizedBox(
                 height: 30,
               ),
@@ -87,11 +93,12 @@ class TimeState extends State<Time> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
+                    width: 100,
                     decoration: BoxDecoration(
                       color: Colors.deepPurpleAccent,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: ElevatedButton(
+                    child: TextButton(
                       style: const ButtonStyle(
                         backgroundColor:
                             MaterialStatePropertyAll(Colors.deepPurpleAccent),
@@ -100,7 +107,7 @@ class TimeState extends State<Time> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Add_Guest()));
+                                builder: (context) => const AddGuestPage()));
                       },
                       child: const Text(
                         "Skip",
@@ -110,11 +117,12 @@ class TimeState extends State<Time> {
                   ),
                   const Spacer(),
                   Container(
+                    width: 100,
                     decoration: BoxDecoration(
                       color: Colors.deepPurpleAccent,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: ElevatedButton(
+                    child: TextButton(
                       style: const ButtonStyle(
                         backgroundColor:
                             MaterialStatePropertyAll(Colors.deepPurpleAccent),
@@ -123,7 +131,7 @@ class TimeState extends State<Time> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const Add_Guest()));
+                                builder: (context) => const AddGuestPage()));
                       },
                       child: const Text(
                         "Next",

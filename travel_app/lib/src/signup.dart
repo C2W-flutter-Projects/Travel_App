@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:travel_app/src/home_page.dart';
-import 'package:travel_app/src/register.dart';
-import 'package:travel_app/src/signup.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<SignUp> createState() => _SignUpState();
 }
 
-class _LoginState extends State<Login> {
+class _SignUpState extends State<SignUp> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -33,7 +30,7 @@ class _LoginState extends State<Login> {
 
             margin: EdgeInsets.only(
                 top: 70, left: 20, right: 20, bottom: 20), // Adjust margin
-            content: Text('Invalid Login Credentials',
+            content: Text('Invalid SignUp Credentials',
                 style: TextStyle(color: Colors.white)),
             duration: Duration(seconds: 2),
           ),
@@ -45,21 +42,14 @@ class _LoginState extends State<Login> {
   void _showSuccessSnackbar() {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(59, 76, 107, 175),
         behavior: SnackBarBehavior.floating,
         margin: EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 20),
-        content: Text('Logged in Successfully',
+        content: Text('Signed Up Successfully',
             style: TextStyle(color: Colors.white)),
         duration: Duration(seconds: 2),
       ),
     );
-
-    Future.delayed(const Duration(seconds: 1), () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomePage()),
-      );
-    });
   }
 
   @override
@@ -75,7 +65,7 @@ class _LoginState extends State<Login> {
               padding: const EdgeInsets.all(8.0),
               child: Center(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Image.network(
                       "https://img.freepik.com/free-vector/privacy-policy-concept-illustration_114360-7853.jpg",
@@ -86,13 +76,22 @@ class _LoginState extends State<Login> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "Welcome!",
+                          "Sign Up",
                           style: TextStyle(
                               fontSize: 60,
                               fontWeight: FontWeight.w700,
                               color: Color.fromRGBO(25, 118, 210, 1)),
                         ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                       ],
+                    ),
+                    Text(
+                      "Create your account",
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(
                       height: 50,
@@ -106,7 +105,7 @@ class _LoginState extends State<Login> {
                         controller: _usernameController,
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.person),
-                          hintText: "Username",
+                          hintText: "Enter Username",
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(35.0),
                           ),
@@ -131,7 +130,7 @@ class _LoginState extends State<Login> {
                         obscuringCharacter: "•",
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.key),
-                          hintText: 'Password',
+                          hintText: 'Enter Password',
                           suffixIcon: IconButton(
                               onPressed: () {
                                 setState(() {
@@ -161,7 +160,7 @@ class _LoginState extends State<Login> {
                               Color.fromRGBO(25, 118, 210, 1))),
                       onPressed: _submitForm,
                       child: const Text(
-                        'Login',
+                        'SignUp',
                         style: TextStyle(
                             fontSize: 19,
                             fontWeight: FontWeight.w400,
@@ -180,22 +179,7 @@ class _LoginState extends State<Login> {
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "New Here?",
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            " Click To Register",
-                            style: TextStyle(
-                                fontSize: 17,
-                                fontWeight: FontWeight.w400,
-                                color: Color.fromRGBO(25, 118, 210, 1)),
-                          ),
-                        ],
+                        children: [],
                       ),
                     ),
                   ],
