@@ -12,6 +12,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:travel_app/src/add_guests.dart';
 import 'package:travel_app/src/book_now.dart';
 import 'package:travel_app/src/payment.dart';
+import 'package:travel_app/src/profile_page.dart';
 import 'package:travel_app/src/time_range.dart';
 
 class TODOModel {
@@ -167,6 +168,7 @@ class _HomePageState extends State<HomePage> {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
@@ -860,8 +862,18 @@ class _HomePageState extends State<HomePage> {
           setState(() {
             selectedIndex = index;
             if (index == 2) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const AddGuestPage()));
+            }
+            if (index == 3) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const Add_Guest()));
+                  MaterialPageRoute(builder: (context) => const BookNowPage()));
+            }
+            if (index == 4) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ProfilePage()));
             }
           });
         },
@@ -869,7 +881,7 @@ class _HomePageState extends State<HomePage> {
           Icon(Icons.search, color: Colors.black),
           Icon(Icons.favorite, color: Colors.black),
           Icon(Icons.widgets_outlined, color: Colors.black),
-          Icon(Icons.message, color: Colors.black),
+          Icon(Icons.shopping_bag, color: Colors.black),
           Icon(Icons.account_circle, color: Colors.black),
         ],
       ),

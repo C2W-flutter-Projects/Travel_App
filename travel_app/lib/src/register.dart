@@ -145,13 +145,16 @@ class _RegisterState extends State<Register> {
                   width: 370,
                   height: 52,
                   child: TextButton(
-                    style:  ButtonStyle(
+                    style: ButtonStyle(
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.0), // Change the border radius as needed
-              ),),
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                              4.0), // Change the border radius as needed
+                        ),
+                      ),
                       backgroundColor: const MaterialStatePropertyAll(
-                          Color(0xff6D31ED),),
+                        Color(0xff6D31ED),
+                      ),
                     ),
                     onPressed: () {
                       setState(() {
@@ -355,7 +358,7 @@ class _RegisterState extends State<Register> {
                   ],
                 ),
                 const SizedBox(
-                  height: 190,
+                  height: 90,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

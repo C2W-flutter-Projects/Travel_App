@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:travel_app/src/home_page.dart';
 import 'package:travel_app/src/payment.dart';
 
 class BookNowPage extends StatefulWidget {
@@ -22,6 +23,20 @@ class _BookNowPageState extends State<BookNowPage> {
           style: GoogleFonts.manrope(fontSize: 14, fontWeight: FontWeight.w700),
         ),
         centerTitle: true,
+        actions: [
+          GestureDetector(
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
+              },
+              child: Icon(
+                Icons.home,
+                size: 26,
+              )),
+          const SizedBox(
+            width: 10,
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(18.0),
@@ -91,7 +106,7 @@ class _BookNowPageState extends State<BookNowPage> {
                                   fontWeight: FontWeight.w400),
                             ),
                           ],
-                        )
+                        ),
                       ],
                     ),
                     const Spacer(),

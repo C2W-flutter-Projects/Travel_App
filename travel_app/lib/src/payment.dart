@@ -8,6 +8,7 @@ import 'package:travel_app/src/book_now.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:travel_app/src/home_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class PaymentPage extends StatefulWidget {
@@ -31,7 +32,7 @@ class _PaymentPageState extends State<PaymentPage> {
         build: (pw.Context context) {
           return pw.Column(
             children: [
-              pw.Text('hellllllllllllll00000000000!',
+              pw.Text('Hello World!',
                   style: pw.TextStyle(fontSize: 40, font: ttf)),
             ],
           );
@@ -42,9 +43,7 @@ class _PaymentPageState extends State<PaymentPage> {
     final path = (await getApplicationDocumentsDirectory()).path;
     final file = File('${path}/example.pdf');
     await file.writeAsBytes(await pdf.save());
-    
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,10 +52,24 @@ class _PaymentPageState extends State<PaymentPage> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
-              height: 70,
+              height: 20,
+            ),
+            GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomePage()));
+                },
+                child: const Icon(
+                  Icons.home,
+                  size: 28,
+                )),
+            const SizedBox(
+              height: 50,
             ),
             Container(
               padding: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
@@ -94,7 +107,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           fontWeight: FontWeight.w400,
                           fontSize: 14,
                         ),
-),
+                      ),
                       const Spacer(),
                       Text(
                         "00000345678765",
