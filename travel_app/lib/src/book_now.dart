@@ -83,13 +83,6 @@ class _BookNowPageState extends State<BookNowPage> {
                             const SizedBox(
                               width: 5,
                             ),
-                            Text(
-                              "(262)",
-                              style: GoogleFonts.manrope(
-                                  color: Colors.grey,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400),
-                            ),
                           ],
                         )
                       ],

@@ -1,8 +1,10 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+// import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_app/src/book_now.dart';
+import 'package:travel_app/src/home_page.dart';
 
 class Add_Guest extends StatefulWidget {
   const Add_Guest({super.key});
@@ -20,17 +22,25 @@ class _Add_GuestState extends State<Add_Guest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(20),
         child: Column(
           children: [
             const SizedBox(
               height: 72,
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Icon(Icons.cancel),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomePage()));
+                    },
+                    child: const Icon(Icons.cancel)),
               ],
             ),
             const SizedBox(
@@ -64,122 +74,126 @@ class _Add_GuestState extends State<Add_Guest> {
             const SizedBox(
               height: 30,
             ),
-            Container(
-              padding: const EdgeInsets.all(13),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+            Wrap(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(13),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
                     children: [
-                      Text(
-                        "How Many Guests",
-                        style: GoogleFonts.lexend(
-                            fontSize: 24, fontWeight: FontWeight.w600),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "How Many Guests",
+                            style: GoogleFonts.lexend(
+                                fontSize: 24, fontWeight: FontWeight.w600),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Adults",
+                            style: GoogleFonts.manrope(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                if (adultCount > 0) {
+                                  adultCount--;
+                                }
+                              });
+                            },
+                            child: Icon(Icons.remove),
+                            style: ElevatedButton.styleFrom(
+                              shape: CircleBorder(),
+                              padding: EdgeInsets.all(20),
+                              minimumSize: Size(20, 30),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(15),
+                            child: Text(
+                              "$adultCount",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                adultCount++;
+                              });
+                            },
+                            child: const Icon(Icons.add),
+                            style: ElevatedButton.styleFrom(
+                              shape: CircleBorder(),
+                              padding: EdgeInsets.all(20),
+                              minimumSize: Size(20, 20),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 35,
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            "Children",
+                            style: GoogleFonts.manrope(
+                                fontSize: 16, fontWeight: FontWeight.w500),
+                          ),
+                          const Spacer(),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                if (childrenCount > 0) {
+                                  childrenCount--;
+                                }
+                              });
+                            },
+                            child: const Icon(Icons.remove),
+                            style: ElevatedButton.styleFrom(
+                              shape: CircleBorder(),
+                              padding: EdgeInsets.all(20),
+                              minimumSize: Size(20, 30),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(15),
+                            child: Text(
+                              "$childrenCount",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                          ),
+                          ElevatedButton(
+                            onPressed: () {
+                              setState(() {
+                                childrenCount++;
+                              });
+                            },
+                            child: const Icon(Icons.add),
+                            style: ElevatedButton.styleFrom(
+                              shape: CircleBorder(),
+                              padding: EdgeInsets.all(20),
+                              minimumSize: Size(20, 20),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Adults",
-                        style: GoogleFonts.manrope(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      ),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            if (adultCount > 0) {
-                              adultCount--;
-                            }
-                          });
-                        },
-                        child: const Icon(Icons.remove),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(20),
-                          minimumSize: Size(20, 30),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(15),
-                        child: Text(
-                          "$adultCount",
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            adultCount++;
-                          });
-                        },
-                        child: const Icon(Icons.add),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(20),
-                          minimumSize: Size(20, 20),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 35,
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        "Children",
-                        style: GoogleFonts.manrope(
-                            fontSize: 16, fontWeight: FontWeight.w500),
-                      ),
-                      const Spacer(),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            if (childrenCount > 0) {
-                              childrenCount--;
-                            }
-                          });
-                        },
-                        child: const Icon(Icons.remove),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(20),
-                          minimumSize: Size(20, 30),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.all(15),
-                        child: Text(
-                          "$childrenCount",
-                          style: TextStyle(fontSize: 15),
-                        ),
-                      ),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            childrenCount++;
-                          });
-                        },
-                        child: const Icon(Icons.add),
-                        style: ElevatedButton.styleFrom(
-                          shape: CircleBorder(),
-                          padding: EdgeInsets.all(20),
-                          minimumSize: Size(20, 20),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
             const Spacer(),
             Row(
@@ -196,7 +210,8 @@ class _Add_GuestState extends State<Add_Guest> {
                   child: Container(
                     child: const Text(
                       "clear all",
-                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      style: TextStyle(
+                          fontSize: 15, color: Colors.deepPurpleAccent),
                     ),
                   ),
                 ),

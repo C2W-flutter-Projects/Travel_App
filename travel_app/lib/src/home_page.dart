@@ -12,6 +12,7 @@ import 'package:syncfusion_flutter_core/theme.dart';
 import 'package:travel_app/src/add_guests.dart';
 import 'package:travel_app/src/book_now.dart';
 import 'package:travel_app/src/payment.dart';
+import 'package:travel_app/src/reviews.dart';
 import 'package:travel_app/src/time_range.dart';
 
 class TODOModel {
@@ -862,6 +863,9 @@ class _HomePageState extends State<HomePage> {
             if (index == 2) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const Add_Guest()));
+            } else if (index == 1) {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const TODOAppUI()));
             }
           });
         },
