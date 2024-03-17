@@ -1,18 +1,14 @@
-// import 'dart:ffi';
-
-// import 'package:flutter/cupertino.dart';
-// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:flutter/widgets.dart';
-// import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_app/src/home_page.dart';
 import 'package:travel_app/src/login.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
+import 'database.dart';
+import 'requiredClasses.dart';
 
 class Register extends StatefulWidget {
-  const Register({super.key});
+  const Register({
+    super.key,
+  });
 
   @override
   State<Register> createState() => _RegisterState();
@@ -20,7 +16,16 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
   TextEditingController phoneController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    database = createMyDatabase();
+  }
 
   void showSignInSnackBar(BuildContext context, String text, Color color) {
     final snackBar = SnackBar(
@@ -38,14 +43,50 @@ class _RegisterState extends State<Register> {
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  void submit(BuildContext context) {
+  void submit() async {
     if (_formKey.currentState!.validate()) {
-      if (phoneController.text.isNotEmpty) {
-        showSignInSnackBar(context, "Sign in Sucessfull!", Colors.green);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => const HomePage()));
+      final phoneNo = phoneController.text;
+      if (phoneNo.length != 10) {
+        showSignInSnackBar(
+            context, "Please Enter a Valid 10 digit Phone Number", Colors.red);
       } else {
-        showSignInSnackBar(context, "Please Enter Mobile Number!", Colors.red);
+        SingleChildModalUsersData newUser = SingleChildModalUsersData(
+            name: nameController.text,
+            phone: phoneController.text,
+            username: usernameController.text,
+            password: passwordController.text);
+        final existingUsers = await fetchUserData();
+
+        bool userExists = false;
+        for (var user in existingUsers) {
+          if (user.username == newUser.username) {
+            userExists = true;
+            break;
+          }
+        }
+
+        if (userExists) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('User already exists!'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        } else {
+          await insertUserData(newUser);
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('User registered successfully!'),
+              backgroundColor: Colors.green,
+            ),
+          );
+          print(database);
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const Login()),
+          );
+        }
       }
     }
   }
@@ -86,7 +127,7 @@ class _RegisterState extends State<Register> {
                   child: Row(
                     children: [
                       Text(
-                        "Enter Your Mobile Number:",
+                        "Enter Your Details:",
                         style: GoogleFonts.manrope(
                             fontSize: 18, fontWeight: FontWeight.w400),
                       ),
@@ -104,10 +145,52 @@ class _RegisterState extends State<Register> {
                         width: 80,
                         height: 52,
                         color: Colors.blue[50],
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, bottom: 15, left: 20, right: 20),
+                          child: Icon(Icons.abc),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          controller: nameController,
+                          decoration: InputDecoration(
+                            hintText: "Enter Your Name",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please Enter Your Name';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 12),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 52,
+                        color: Colors.blue[50],
                         child: Padding(
                           padding: const EdgeInsets.only(
                               top: 15, bottom: 15, left: 20, right: 20),
                           child: Image.network(
+                            width: 40,
+                            height: 25,
                             "https://img.freepik.com/free-vector/illustration-india-flag_53876-27130.jpg",
                           ),
                         ),
@@ -136,7 +219,87 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
                 const SizedBox(
-                  height: 23,
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 12),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 52,
+                        color: Colors.blue[50],
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, bottom: 15, left: 20, right: 20),
+                          child: Icon(Icons.person),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          controller: usernameController,
+                          decoration: InputDecoration(
+                            hintText: "Create Your Username",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please Enter Username';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 20, right: 12),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 80,
+                        height: 52,
+                        color: Colors.blue[50],
+                        child: const Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, bottom: 15, left: 20, right: 20),
+                          child: Icon(Icons.key),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          controller: passwordController,
+                          decoration: InputDecoration(
+                            hintText: "Create Your Password",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4.0),
+                            ),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please Enter Mobile number';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Container(
                   decoration: BoxDecoration(
@@ -156,11 +319,7 @@ class _RegisterState extends State<Register> {
                         Color(0xff6D31ED),
                       ),
                     ),
-                    onPressed: () {
-                      setState(() {
-                        submit(context);
-                      });
-                    },
+                    onPressed: submit,
                     child: const Text(
                       "Continue",
                       style: TextStyle(fontSize: 20, color: Colors.white),
