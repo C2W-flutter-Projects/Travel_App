@@ -7,7 +7,7 @@ import 'package:path/path.dart' as path;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   database = openDatabase(
-    path.join(await getDatabasesPath(), 'TodoList10.db'),
+    path.join(await getDatabasesPath(), 'TodoList5.db'),
     version: 1,
     onCreate: (db, version) async {
       await db.execute(
