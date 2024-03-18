@@ -71,7 +71,6 @@ Future<List<SingleChildModalUsersData>> fetchUserData() async {
   });
 }
 
-
 class AppDataModel {
   final int? reviewId;
   String? title;

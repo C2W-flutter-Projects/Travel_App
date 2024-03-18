@@ -156,7 +156,6 @@ class _TODOAppUIState extends State<TODOAppUI> {
     setState(() {
       reviewList.remove(obj);
       deletereviewData(obj.reviewId);
-      
     });
     print("After delete:  ${await getreviewData()}");
   }
@@ -334,7 +333,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
 
   @override
   Widget build(BuildContext context) {
-    print("Inside buildcontext $reviewList or $reviewList");
+    // print("Inside buildcontext $reviewList or $reviewList");
     return Scaffold(
       backgroundColor: Colors.blue.shade100,
       body: Padding(

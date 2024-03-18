@@ -288,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                                 activeColor: const Color(0xff6D31ED),
                                 onChanged: (bool? value) {
                                   setState(() {
-                                    _isChecked1 = value!;
+                                    _isChecked1 = value ?? false;
                                   });
                                 },
                               ),
@@ -321,7 +321,7 @@ class _HomePageState extends State<HomePage> {
                                 activeColor: const Color(0xff6D31ED),
                                 onChanged: (bool? value) {
                                   setState(() {
-                                    _isChecked2 = value!;
+                                    _isChecked2 = value ?? false;
                                   });
                                 },
                               ),
@@ -353,7 +353,7 @@ class _HomePageState extends State<HomePage> {
                                 activeColor: const Color(0xff6D31ED),
                                 onChanged: (bool? value) {
                                   setState(() {
-                                    _isChecked3 = value!;
+                                    _isChecked3 = value ?? false;
                                   });
                                 },
                               ),
