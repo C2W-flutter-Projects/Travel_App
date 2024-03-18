@@ -29,9 +29,11 @@ Future<dynamic> createMyDatabase() async {
   )
 ''');
       db.execute(''' CREATE TABLE AppData (
-    reviewId INTEGER PRIMARY KEY AUTOINCREMENT,
+    dataId INTEGER PRIMARY KEY,
+    img TEXT,
     title TEXT,
     description TEXT,
+    prize INTEGER,
     stars REAL
   )
 ''');
@@ -72,30 +74,88 @@ Future<List<SingleChildModalUsersData>> fetchUserData() async {
 }
 
 class AppDataModel {
-  final int? reviewId;
+  final int? dataId;
+  String? img;
   String? title;
   String? description;
+  int? prize;
   double? stars;
 
-  AppDataModel({this.reviewId, this.title, this.description, this.stars});
+  AppDataModel(
+      {this.dataId,
+      this.img,
+      this.title,
+      this.description,
+      this.prize,
+      this.stars});
 
   Map<String, dynamic> todoMap() {
     return {
-      "reviewId": reviewId,
+      "dataId": dataId,
+      "img": img,
       "title": title,
       "description": description,
+      "prize": prize,
       "stars": stars,
     };
   }
 
   @override
   String toString() {
-    return """{reviewId : $reviewId, title : $title, description : $description, stars : $stars}""";
+    return """{dataId : $dataId, img : $img, title : $title, description : $description, prize : $prize, stars : $stars}""";
   }
 }
 
-List<AppDataModel> dataList = [];
-double starsRating = 0.0;
+List<AppDataModel> dataList = [
+  AppDataModel(
+    dataId: 0,
+    img: 'assets/images/place1.jpg',
+    title: 'Paradise Palms Resort',
+    description: 'Luxury',
+    prize: 20,
+    stars: 4.5,
+  ),
+  AppDataModel(
+    dataId: 1,
+    img: 'assets/images/place2.jpg',
+    title: 'Serenity Suites',
+    description: 'Boutique',
+    prize: 25,
+    stars: 5.0,
+  ),
+  AppDataModel(
+    dataId: 2,
+    img: 'assets/images/place3.jpg',
+    title: 'Tranquil Haven Hotel',
+    description: 'Seaside',
+    prize: 30,
+    stars: 3.6,
+  ),
+  AppDataModel(
+    dataId: 3,
+    img: 'assets/images/place4.jpg',
+    title: 'Blissful Retreat Lodge',
+    description: 'Mountain',
+    prize: 48,
+    stars: 3.0,
+  ),
+  AppDataModel(
+    dataId: 4,
+    img: 'assets/images/place5.jpg',
+    title: 'Urban Oasis Hotel',
+    description: 'City',
+    prize: 35,
+    stars: 3.5,
+  ),
+  AppDataModel(
+    dataId: 5,
+    img: 'assets/images/place6.jpg',
+    title: 'Lakeside Lodge',
+    description: 'Lakeside',
+    prize: 42,
+    stars: 4.8,
+  ),
+];
 
 // insert
 Future<void> insertAppData(AppDataModel obj) async {
@@ -109,15 +169,17 @@ Future<void> insertAppData(AppDataModel obj) async {
 Future<List<AppDataModel>> getAppData() async {
   final localDB = await database;
 
-  List<Map<String, dynamic>> reviewMap = await localDB.query("AppData");
-  print("INSIDE MAP: $reviewMap");
-  return List.generate(reviewMap.length, (i) {
+  List<Map<String, dynamic>> dataMap = await localDB.query("AppData");
+  print("INSIDE MAP: $dataMap");
+  return List.generate(dataMap.length, (i) {
     return AppDataModel(
-      reviewId: reviewMap[i]['reviewId'],
-      title: reviewMap[i]['title'],
-      description: reviewMap[i]['description'],
-      stars: reviewMap[i]['stars'],
-      // date: reviewMap[i]['date'],
+      dataId: dataMap[i]['dataId'],
+      img: dataMap[i]['img'],
+      title: dataMap[i]['title'],
+      description: dataMap[i]['description'],
+      prize: dataMap[i]['prize'],
+      stars: dataMap[i]['stars'],
+      // date: dataMap[i]['date'],
     );
   });
 }

@@ -15,6 +15,7 @@ import 'package:travel_app/src/payment.dart';
 import 'package:travel_app/src/profile_page.dart';
 import 'package:travel_app/src/reviews.dart';
 import 'package:travel_app/src/time_range.dart';
+import 'package:travel_app/src/database.dart';
 
 class TODOModel {
   int? taskId;
@@ -757,7 +758,7 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white),
               child: ListView.builder(
                 shrinkWrap: true,
-                itemCount: 6,
+                itemCount: dataList.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
@@ -774,7 +775,7 @@ class _HomePageState extends State<HomePage> {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage(
-                                    "assets/images/place${index + 1}.jpg"),
+                                    dataList[index].img!),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(8),
                           ),
@@ -796,7 +797,7 @@ class _HomePageState extends State<HomePage> {
                                 width: 25,
                               ),
                               Text(
-                                "Resort in Goa",
+                                dataList[index].title!,
                                 style: GoogleFonts.manrope(
                                     fontSize: 14, fontWeight: FontWeight.w700),
                               ),
@@ -806,7 +807,7 @@ class _HomePageState extends State<HomePage> {
                                 color: Colors.amber,
                               ),
                               Text(
-                                "5.0",
+                                "${dataList[index].stars!}",
                                 style: GoogleFonts.manrope(
                                     fontSize: 14, fontWeight: FontWeight.w400),
                               )
@@ -822,7 +823,7 @@ class _HomePageState extends State<HomePage> {
                                 width: 25,
                               ),
                               Text(
-                                "Beach",
+                                dataList[index].description!,
                                 style: GoogleFonts.manrope(
                                     fontSize: 14, fontWeight: FontWeight.w400),
                               ),
@@ -833,7 +834,7 @@ class _HomePageState extends State<HomePage> {
                                 size: 18,
                               ),
                               Text(
-                                "850/night",
+                                "${dataList[index].prize!}/night",
                                 style: GoogleFonts.manrope(
                                     fontSize: 14, fontWeight: FontWeight.w400),
                               ),

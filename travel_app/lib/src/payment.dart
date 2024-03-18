@@ -187,45 +187,45 @@ class _PaymentPageState extends State<PaymentPage> {
                   const SizedBox(
                     height: 35,
                   ),
-                  OutlinedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        fixedSize: const MaterialStatePropertyAll(
-                          Size(350, 50),
-                        ),
-                        side: MaterialStateProperty.all<BorderSide>(
-                          const BorderSide(
-                            color: Colors.grey, // Change the border color here
-                            width: 1, // Change the border width here
-                          ),
-                        ),
-                        elevation: MaterialStateProperty.all<double>(5),
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(
-                                4.0), // Change the border radius as needed
-                          ),
-                        ),
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const Icon(
-                            Icons.picture_as_pdf_outlined,
-                            size: 18,
-                            color: Colors.black,
-                          ),
-                          Text(
-                            " Get PDF receipt",
-                            style: GoogleFonts.manrope(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14,
-                              color: Colors.black,
-                            ),
-                          ),
-                        ],
-                      )),
+                  // OutlinedButton(
+                  //     onPressed: () {},
+                  //     style: ButtonStyle(
+                  //       fixedSize: const MaterialStatePropertyAll(
+                  //         Size(350, 50),
+                  //       ),
+                  //       side: MaterialStateProperty.all<BorderSide>(
+                  //         const BorderSide(
+                  //           color: Colors.grey, // Change the border color here
+                  //           width: 1, // Change the border width here
+                  //         ),
+                  //       ),
+                  //       elevation: MaterialStateProperty.all<double>(5),
+                  //       shape:
+                  //           MaterialStateProperty.all<RoundedRectangleBorder>(
+                  //         RoundedRectangleBorder(
+                  //           borderRadius: BorderRadius.circular(
+                  //               4.0), // Change the border radius as needed
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     child: Row(
+                  //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       children: [
+                  //         const Icon(
+                  //           Icons.picture_as_pdf_outlined,
+                  //           size: 18,
+                  //           color: Colors.black,
+                  //         ),
+                  //         Text(
+                  //           " Get PDF receipt",
+                  //           style: GoogleFonts.manrope(
+                  //             fontWeight: FontWeight.w600,
+                  //             fontSize: 14,
+                  //             color: Colors.black,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     )),
                 ],
               ),
             ),
