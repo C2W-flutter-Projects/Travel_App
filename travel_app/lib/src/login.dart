@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:travel_app/src/database.dart';
+// import 'package:travel_app/main.dart';
 import 'package:travel_app/src/home_page.dart';
 import 'package:travel_app/src/register.dart';
-import 'package:travel_app/src/signup.dart';
+import 'package:travel_app/src/reviews.dart';
+import 'requiredClasses.dart';
+// import 'database.dart';
+// import 'package:travel_app/src/signup.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -16,23 +21,38 @@ class _LoginState extends State<Login> {
   final TextEditingController _passwordController = TextEditingController();
 
   bool flag = true;
-  // Hardcoded username and password for validation
-  final String _username = 'username';
-  final String _password = 'password';
+  dynamic database;
+  List<SingleChildModalUsersData> data = [];
 
-  void _submitForm() {
+  @override
+  void initState() {
+    super.initState();
+    database = createMyDatabase();
+    print("Database Initialized Sucessfully");
+  }
+
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      if (_usernameController.text == _username &&
-          _passwordController.text == _password) {
+      data = await fetchUserData();
+      reviewList = await getreviewData();
+      bool flag = false;
+
+      for (int i = 0; i < data.length; i++) {
+        if (data[i].username == _usernameController.text.trim() &&
+            data[i].password == _passwordController.text) {
+          flag = true;
+          break;
+        }
+      }
+
+      if (flag) {
         _showSuccessSnackbar();
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-            backgroundColor: Colors.red, // Change background color
-            behavior: SnackBarBehavior.floating, // Set behavior to floating
-
-            margin: EdgeInsets.only(
-                top: 70, left: 20, right: 20, bottom: 20), // Adjust margin
+            backgroundColor: Colors.red,
+            behavior: SnackBarBehavior.floating,
+            margin: EdgeInsets.only(top: 70, left: 20, right: 20, bottom: 20),
             content: Text('Invalid Login Credentials',
                 style: TextStyle(color: Colors.white)),
             duration: Duration(seconds: 2),
@@ -176,7 +196,7 @@ class _LoginState extends State<Login> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SignUp()));
+                                builder: (context) => const Register()));
                       },
                       child: const Row(
                         mainAxisAlignment: MainAxisAlignment.center,

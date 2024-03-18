@@ -14,6 +14,8 @@ class Time extends StatefulWidget {
 class TimeState extends State<Time> {
   TextEditingController locationController = TextEditingController();
 
+  DateTime _selectedDay = DateTime.now();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,16 +28,16 @@ class TimeState extends State<Time> {
                 height: 32,
               ),
               GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()));
-                      },
-                      child: Icon(
-                        Icons.cancel,
-                        size: 26,
-                      )),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomePage()));
+                  },
+                  child: Icon(
+                    Icons.cancel,
+                    size: 26,
+                  )),
               const SizedBox(
                 height: 30,
               ),
@@ -81,11 +83,23 @@ class TimeState extends State<Time> {
                     border: Border.all(color: Colors.blue),
                   ),
                   child: Center(
-                      child: TableCalendar(
-                    focusedDay: DateTime.now(),
-                    firstDay: DateTime(2020),
-                    lastDay: DateTime(2026),
-                  ))),
+                    child: TableCalendar(
+                      focusedDay: _selectedDay,
+                      firstDay: DateTime(2020),
+                      lastDay: DateTime(2026),
+                      selectedDayPredicate: (day) =>
+                          isSameDay(_selectedDay, day),
+                      onDaySelected: (selectedDay, focusedDay) {
+                        setState(() {
+                          _selectedDay = selectedDay;
+                          print(_selectedDay);
+                        });
+                        // Additional actions to perform on date selection (optional)
+                        // ...
+                      },
+                      // ... (other TableCalendar properties as needed)
+                    ),
+                  )),
               const SizedBox(
                 height: 50,
               ),

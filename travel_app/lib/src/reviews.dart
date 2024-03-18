@@ -6,70 +6,69 @@ import 'package:path/path.dart' as path;
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:travel_app/src/database.dart';
 
-dynamic database;
-List<TODOModel> taskList = [];
+List<ReviewModel> reviewList = [];
 double starsRating = 0.0;
 
 // insert
-Future<void> insertTaskData(TODOModel obj) async {
+Future<void> insertreviewData(ReviewModel obj) async {
   final localDB = await database;
 
-  await localDB.insert("AddTask", obj.todoMap(),
+  await localDB.insert("ReviewData", obj.todoMap(),
       conflictAlgorithm: ConflictAlgorithm.replace);
 }
 
 // fetch data
-Future<List<TODOModel>> getTaskData() async {
+Future<List<ReviewModel>> getreviewData() async {
   final localDB = await database;
 
-  List<Map<String, dynamic>> taskMap = await localDB.query("AddTask");
-  print("INSIDE MAP: $taskMap");
-  return List.generate(taskMap.length, (i) {
-    return TODOModel(
-      taskId: taskMap[i]['taskId'],
-      title: taskMap[i]['title'],
-      description: taskMap[i]['description'],
-      stars: taskMap[i]['stars'],
-      // date: taskMap[i]['date'],
+  List<Map<String, dynamic>> reviewMap = await localDB.query("ReviewData");
+  print("INSIDE MAP: $reviewMap");
+  return List.generate(reviewMap.length, (i) {
+    return ReviewModel(
+      reviewId: reviewMap[i]['reviewId'],
+      title: reviewMap[i]['title'],
+      description: reviewMap[i]['description'],
+      stars: reviewMap[i]['stars'],
+      // date: reviewMap[i]['date'],
     );
   });
 }
 
 // delete
-Future<void> deleteTaskData(int? data) async {
+Future<void> deletereviewData(int? data) async {
   final localDB = await database;
-
+  print("what is data...........$data");
   await localDB.delete(
-    "AddTask",
-    where: "taskId = ?",
+    "ReviewData",
+    where: "reviewId = ?",
     whereArgs: [data],
   );
 }
 
 // update
-Future<void> updateTaskData(TODOModel obj) async {
+Future<void> updatereviewData(ReviewModel obj) async {
   final localDB = await database;
   await localDB.update(
-    "AddTask",
+    "ReviewData",
     obj.todoMap(),
-    where: "taskId = ?",
-    whereArgs: [obj.taskId],
+    where: "reviewId = ?",
+    whereArgs: [obj.reviewId],
   );
 }
 
-class TODOModel {
-  final int? taskId;
+class ReviewModel {
+  final int? reviewId;
   String? title;
   String? description;
   double? stars;
-  // String? date;
 
-  TODOModel({this.taskId, this.title, this.description, this.stars});
+  ReviewModel({this.reviewId, this.title, this.description, this.stars});
 
   Map<String, dynamic> todoMap() {
     return {
-      "taskId": taskId,
+      "reviewId": reviewId,
       "title": title,
       "description": description,
       "stars": stars,
@@ -78,7 +77,7 @@ class TODOModel {
 
   @override
   String toString() {
-    return """{taskId : $taskId, title : $title, description : $description, stars : $stars}""";
+    return """{reviewId : $reviewId, title : $title, description : $description, stars : $stars}""";
   }
 }
 
@@ -101,8 +100,6 @@ class TODOAppUI extends StatefulWidget {
 }
 
 class _TODOAppUIState extends State<TODOAppUI> {
-  List<TODOModel> cardList = taskList;
-
   ///Text Editing Controllers
   // final TextEditingController dateController = TextEditingController();
   final TextEditingController titleController = TextEditingController();
@@ -115,7 +112,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
     // dateController.clear();
   }
 
-  void submit(bool doEdit, [TODOModel? obj]) async {
+  void submit(bool doEdit, [ReviewModel? obj]) async {
     if (titleController.text.trim().isNotEmpty &&
             descriptionController.text.trim().isNotEmpty &&
             starsRating != 0.0
@@ -123,18 +120,18 @@ class _TODOAppUIState extends State<TODOAppUI> {
         ) {
       if (!doEdit) {
         setState(() {
-          insertTaskData(TODOModel(
+          insertreviewData(ReviewModel(
               title: titleController.text.trim(),
               description: descriptionController.text.trim(),
               stars: starsRating));
 
-          cardList.add(TODOModel(
+          reviewList.add(ReviewModel(
             title: titleController.text.trim(),
             description: descriptionController.text.trim(),
             // date: dateController.text.trim()
           ));
         });
-        print("After Insertion: ${await getTaskData()}");
+        print("After Insertion: ${await getreviewData()}");
       } else {
         setState(() {
           obj!.title = titleController.text.trim();
@@ -143,31 +140,28 @@ class _TODOAppUIState extends State<TODOAppUI> {
         });
       }
     }
-    clearControllers();
   }
 
-  void editEntry(TODOModel obj) async {
+  void editEntry(ReviewModel obj) async {
     titleController.text = obj.title!;
     descriptionController.text = obj.description!;
     // dateController.text = obj.date!;
-    updateTaskData(obj);
-    print("After update:  ${await getTaskData()}");
+    updatereviewData(obj);
+    print("After update:  ${await getreviewData()}");
 
     showBottomSht(true, obj);
   }
 
-  void deleteEntry(TODOModel obj) async {
+  void deleteEntry(ReviewModel obj) async {
     setState(() {
-      cardList.remove(obj);
-      deleteTaskData(obj.taskId);
-      for (int? i = obj.taskId! + 1; i! < taskList.length; i += 1) {
-        updateTaskData(TODOModel(taskId: i - 1));
-      }
+      reviewList.remove(obj);
+      deletereviewData(obj.reviewId);
+      
     });
-    print("After delete:  ${await getTaskData()}");
+    print("After delete:  ${await getreviewData()}");
   }
 
-  Future<void> showBottomSht(bool doEdit, [TODOModel? todoModelObj]) async {
+  Future<void> showBottomSht(bool doEdit, [ReviewModel? ReviewModelObj]) async {
     await showModalBottomSheet(
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
@@ -319,7 +313,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
                     backgroundColor: const Color.fromRGBO(89, 57, 241, 1),
                   ),
                   onPressed: () {
-                    doEdit ? submit(doEdit, todoModelObj) : submit(doEdit);
+                    doEdit ? submit(doEdit, ReviewModelObj) : submit(doEdit);
                     Navigator.pop(context);
                   },
                   child: Text(
@@ -340,7 +334,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
 
   @override
   Widget build(BuildContext context) {
-    print("Inside buildcontext $cardList or $taskList");
+    print("Inside buildcontext $reviewList or $reviewList");
     return Scaffold(
       backgroundColor: Colors.blue.shade100,
       body: Padding(
@@ -419,7 +413,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
                         ),
                         child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                          itemCount: cardList.length,
+                          itemCount: reviewList.length,
                           itemBuilder: (context, index) {
                             return Slidable(
                               // closeOnScroll: true,
@@ -453,7 +447,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
                                             ),
                                           ),
                                           onTap: () {
-                                            editEntry(cardList[index]);
+                                            editEntry(reviewList[index]);
                                           },
                                         ),
                                         const SizedBox(
@@ -477,7 +471,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
                                             ),
                                           ),
                                           onTap: () {
-                                            deleteEntry(cardList[index]);
+                                            deleteEntry(reviewList[index]);
                                           },
                                         ),
                                         const SizedBox(
@@ -527,7 +521,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
                                               Row(
                                                 children: [
                                                   Text(
-                                                    cardList[index].title!,
+                                                    reviewList[index].title!,
                                                     style: GoogleFonts.manrope(
                                                         fontSize: 20,
                                                         fontWeight:
@@ -539,7 +533,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
                                                 height: 8,
                                               ),
                                               Text(
-                                                cardList[index].description!,
+                                                reviewList[index].description!,
                                                 style: GoogleFonts.manrope(
                                                     fontSize: 14,
                                                     fontWeight:
@@ -609,6 +603,7 @@ class _TODOAppUIState extends State<TODOAppUI> {
         child: FloatingActionButton(
           backgroundColor: Colors.blue.shade100,
           onPressed: () async {
+            clearControllers();
             await showBottomSht(false);
           },
           child: Container(
