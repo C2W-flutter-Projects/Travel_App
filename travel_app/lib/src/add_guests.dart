@@ -4,6 +4,7 @@ import 'package:travel_app/src/book_now.dart';
 import 'package:travel_app/src/home_page.dart';
 
 class AddGuestPage extends StatefulWidget {
+  
   const AddGuestPage({super.key});
 
   @override
@@ -11,8 +12,8 @@ class AddGuestPage extends StatefulWidget {
 }
 
 class _AddGuestPageState extends State<AddGuestPage> {
-  TextEditingController locController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
+  // TextEditingController locController = TextEditingController();
+  // TextEditingController dateController = TextEditingController();
 
   int adultCount = 0;
   int childrenCount = 0;
@@ -49,31 +50,31 @@ class _AddGuestPageState extends State<AddGuestPage> {
               const SizedBox(
                 height: 30,
               ),
-              TextField(
-                controller: locController,
-                decoration: InputDecoration(
-                  hintText: 'Location',
-                  suffixIcon: const Icon(Icons.location_on),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: Colors.black),
-                  ),
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              TextField(
-                controller: dateController,
-                decoration: InputDecoration(
-                  hintText: 'Dates',
-                  suffixIcon: const Icon(Icons.date_range),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10),
-                    borderSide: const BorderSide(color: Colors.black),
-                  ),
-                ),
-              ),
+              // TextField(
+              //   controller: locController,
+              //   decoration: InputDecoration(
+              //     hintText: 'Location',
+              //     suffixIcon: const Icon(Icons.location_on),
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //       borderSide: const BorderSide(color: Colors.black),
+              //     ),
+              //   ),
+              // ),
+              // const SizedBox(
+              //   height: 20,
+              // ),
+              // TextField(
+              //   controller: dateController,
+              //   decoration: InputDecoration(
+              //     hintText: 'Dates',
+              //     suffixIcon: const Icon(Icons.date_range),
+              //     border: OutlineInputBorder(
+              //       borderRadius: BorderRadius.circular(10),
+              //       borderSide: const BorderSide(color: Colors.black),
+              //     ),
+              //   ),
+              // ),
               const SizedBox(
                 height: 30,
               ),
@@ -114,12 +115,12 @@ class _AddGuestPageState extends State<AddGuestPage> {
                               }
                             });
                           },
-                          child: const Icon(Icons.remove),
                           style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            padding: EdgeInsets.all(20),
-                            minimumSize: Size(20, 30),
+                            shape: const CircleBorder(),
+                            padding: const EdgeInsets.all(20),
+                            minimumSize: const Size(20, 30),
                           ),
+                          child: const Icon(Icons.remove),
                         ),
                         Container(
                           margin: const EdgeInsets.all(15),
@@ -182,12 +183,12 @@ class _AddGuestPageState extends State<AddGuestPage> {
                               childrenCount++;
                             });
                           },
-                          child: const Icon(Icons.add),
                           style: ElevatedButton.styleFrom(
-                            shape: CircleBorder(),
-                            padding: EdgeInsets.all(20),
-                            minimumSize: Size(20, 20),
+                            shape: const CircleBorder(),
+                            padding: const EdgeInsets.all(20),
+                            minimumSize: const Size(20, 20),
                           ),
+                          child: const Icon(Icons.add),
                         ),
                       ],
                     ),
@@ -202,8 +203,8 @@ class _AddGuestPageState extends State<AddGuestPage> {
                       setState(() {
                         adultCount = 0;
                         childrenCount = 0;
-                        locController.text = "";
-                        dateController.text = "";
+                        // locController.text = "";
+                        // dateController.text = "";
                       });
                     },
                     child: Container(

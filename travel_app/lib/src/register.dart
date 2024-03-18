@@ -1,9 +1,10 @@
+import 'package:travel_app/src/reviews.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_app/src/home_page.dart';
 import 'package:travel_app/src/login.dart';
-import 'database.dart';
 import 'requiredClasses.dart';
+import 'package:travel_app/src/database.dart';
 
 class Register extends StatefulWidget {
   const Register({
@@ -334,7 +335,8 @@ class _RegisterState extends State<Register> {
                   height: 12,
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    reviewList = await getreviewData();
                     showSignInSnackBar(
                       context,
                       "Signing in with Apple",
@@ -375,7 +377,8 @@ class _RegisterState extends State<Register> {
                   height: 10,
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    reviewList = await getreviewData();
                     showSignInSnackBar(
                       context,
                       "Signing in with Facebook",
@@ -421,7 +424,8 @@ class _RegisterState extends State<Register> {
                   height: 10,
                 ),
                 GestureDetector(
-                  onTap: () {
+                  onTap: () async {
+                    reviewList = await getreviewData();
                     showSignInSnackBar(
                       context,
                       "Signing in with Google",
