@@ -1,11 +1,11 @@
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:travel_app/src/add_guests.dart';
 import 'package:travel_app/src/home_page.dart';
 
 class Time extends StatefulWidget {
-  const Time({super.key });
+  const Time({super.key});
 
   @override
   State<Time> createState() => TimeState();
@@ -41,39 +41,9 @@ class TimeState extends State<Time> {
               const SizedBox(
                 height: 30,
               ),
-              // TextField(
-              //   controller: locationController,
-              //   decoration: InputDecoration(
-              //     hintText: 'Location',
-              //     suffixIcon: const Icon(Icons.location_on),
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //       borderSide: const BorderSide(color: Colors.black),
-              //     ),
-              //   ),
-              // ),
               const SizedBox(
                 height: 20,
               ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: [
-              //     Container(
-              //       decoration: BoxDecoration(
-              //         color: Colors.deepPurpleAccent,
-              //         borderRadius: BorderRadius.circular(10),
-              //       ),
-              //       padding: const EdgeInsets.all(10),
-              //       child: const Text(
-              //         "Choose Date",
-              //         style: TextStyle(
-              //             color: Colors.white,
-              //             fontSize: 14,
-              //             fontWeight: FontWeight.w400),
-              //       ),
-              //     ),
-              //   ],
-              // ),
               const SizedBox(
                 height: 20,
               ),

@@ -4,7 +4,6 @@ import 'package:travel_app/src/book_now.dart';
 import 'package:travel_app/src/home_page.dart';
 
 class AddGuestPage extends StatefulWidget {
-  
   const AddGuestPage({super.key});
 
   @override
@@ -50,31 +49,6 @@ class _AddGuestPageState extends State<AddGuestPage> {
               const SizedBox(
                 height: 30,
               ),
-              // TextField(
-              //   controller: locController,
-              //   decoration: InputDecoration(
-              //     hintText: 'Location',
-              //     suffixIcon: const Icon(Icons.location_on),
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //       borderSide: const BorderSide(color: Colors.black),
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 20,
-              // ),
-              // TextField(
-              //   controller: dateController,
-              //   decoration: InputDecoration(
-              //     hintText: 'Dates',
-              //     suffixIcon: const Icon(Icons.date_range),
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(10),
-              //       borderSide: const BorderSide(color: Colors.black),
-              //     ),
-              //   ),
-              // ),
               const SizedBox(
                 height: 30,
               ),

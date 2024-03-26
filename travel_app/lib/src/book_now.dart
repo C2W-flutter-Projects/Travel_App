@@ -60,7 +60,7 @@ class _BookNowPageState extends State<BookNowPage> {
                         Row(
                           children: [
                             Text(
-                              "\$850",
+                              "\$20",
                               style: GoogleFonts.manrope(
                                   fontSize: 20, fontWeight: FontWeight.w700),
                             ),
